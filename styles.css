@@ -1,0 +1,115 @@
+.jumbotron{
+    background-image: url("images/2434392.png");
+    background-position: 0% 20%;
+    background-size: cover;
+    padding: 10%;
+}
+body{
+    background-color: rgb(0, 0, 0);
+    scroll-behavior: smooth;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+.board{
+    background-color: rgb(56, 1, 56);
+    height: 100%;
+    border-top-left-radius: 40%;
+    border-top-right-radius: 40%;
+    background-image: url(images/82762479-velluto-o-tessuto-di-velluto-struttura-colore-viola-alta-risoluzione.jpg);
+}
+#dealerHold{
+    margin-top: 1%;
+}
+#cardhold{
+    padding-bottom: 10%;
+}
+#hitButton{
+    width: 100%;
+    padding:2px;
+    background-color: rgb(157, 231, 157);
+    margin-bottom: 15px;
+    border: none;
+}
+#standButton{
+    width: 100%;
+    padding:2px;
+    background-color: rgb(70, 70, 204);
+    margin-bottom: 15px;
+    border: none;
+}
+#resetButton{
+    width: 100%;
+    padding:2px;
+    background-color: rgb(228, 186, 186);
+    border: none;
+}
+#boardLogo{
+    margin: 0 auto ;
+    width: 50%;
+}
+
+#results{
+    margin: auto;
+    color: white;
+}
+.gameResults{
+    height: 250%;
+    text-align: center;
+    mix-blend-mode: screen;
+}
+.Deal{
+    text-align: center;
+    margin-bottom: 6%;    
+}
+#deal{
+    width: 50%;
+    padding:2px;
+    background-color: rgb(243, 203, 24);
+    border: none;
+}
+.initialCardImg{
+    visibility: hidden;
+}
+#inGameBets{
+    visibility: hidden;
+}
+@media only screen and (max-width: 768px) {
+    #plcard{
+        display: inline;
+        font-size: 100%;
+    }
+    #plScoreTitle{
+        display: inline;
+    }
+    #playerScoreTrack{
+        display: inline;
+    }
+    #dealerScoreTrack{
+        display: inline;
+    }
+    #playerBetAmount{
+        display: inline;
+    }
+    #playerBag{
+        display: inline;
+    }
+    .initialCardImg{
+        width: 25%;
+    }
+    .cardImg{
+        width: 25%;
+    }
+    #results{
+        margin: auto;
+        font-size: 150%;
+        color: white;
+    }
+    .board{
+        border-top-left-radius: 0%;
+        border-top-right-radius: 0%;
+    }
+    #boardLogo{
+        margin:auto;
+        width: 50%; 
+        height: 50%;
+    }
+}

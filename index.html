@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head >
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <title>Black Jack</title>
+</head>
+
+<body onload="Dealer()" >
+    
+    <div id="betplaceModal" class="modal fade" role="dialog">
+        <div class="modal-dialog  modal-lg" role="content">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modalHeader">Place your bet </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="Bet" class="col-md-2 col-form-label">Your bet</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="betplaced" name="betplaced" placeholder="Your bet" >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Amount" class="col-md-2 col-form-label">Amount</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="amount" name="amount" placeholder="Total amount" >
+                            </div>
+                        </div>                      
+                            <div class="form-group row">
+                                <div class=" offset-1 offset-sm-2 col-md-9">
+                                    <button type="button" class="btn btn-secondary btn-sm ml-auto" data-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-primary btn-sm ml-auto " id="initialBet" onclick="window.setTimeout(dis,1000)" data-dismiss="modal">Deal</button>
+                                    <button type="button" class="btn btn-primary btn-sm ml-auto" id="inGameBets" onclick="nextRound()" data-dismiss="modal" >Deal</button>
+                                    <p style="color:red; visibility:visible; font-size:80%">*Amount should be atleast twice the bet placed.</p>
+                              </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="instrctionsAndRulesModal" class="modal fade" role="dialog">
+        <div class="modal-dialog  modal-lg" role="content">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modalHeader" >Rules and How to </h3>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <h5>OBJECT OF THE GAME</h5>
+                        <p>The player attempts to beat the dealer by getting a score as close to 21 as possible, without going over 21.</p>
+
+                    <h5>CARD VALUES/SCORING</h5>
+                    If the player score is less than 11 then the value of ace is 11 otherwise the value of ace is taken as 1. Face cards are 10 and any other card is its face value. </p>
+                    <h5>DEAL</h5>
+                    <p>The player is dealt two cards facing up and the dealer is dealt 1 card.</p>
+                    <h5>BLACK JACK</h5>
+                    <p>If the player is dealt an ace and a 10(any face card or 10) on the first two cards then the player has a black jack and will 1.5 times the bet he placed unless the
+                    dealer also has a black jack on his first two cards.</p>
+                    <h5>THE PLAY</h5>
+                    <p>After being dealt the two cards, the player can "Stand" (he will no longer take any card and the dealers turn will begin) or he can "Hit" ask for another card. The player can "Hit"
+                    until he is satisfied or if he busts(goes over 21). The player can also "double down". This means that the player will ask for only one more card and then "Stand" automatically while his bet will be increased two times. 
+                    If the player goes over 21 he automatically loses.</p>
+                    <h5>THE DEALERS PLAY</h5>
+                    <p>When it is the dealers turn, the dealer will keep on drawing a card until he has reached the score of 17 or more. The dealer must draw a card if he is below 17. If the dealer's score is more than the player then the dealer wins. 
+                    If it is lower then the player wins. If the dealer goes over 21 then the player wins. If the score of both the player and dealer is same then it is a draw!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="jumbotron">
+        <div class="container">
+            <div class="row row-header">
+            </div>
+        </div>
+    </header>
+
+    
+
+
+    <section class="board"> 
+        <div class="container">
+            <div class="row">
+                <div class="col-12  gameResults" >
+                    <h2 id="results">HIT DEAL TO START THE GAME</h2>
+                </div>
+                <br>
+                <div class="col-8 offset-4 Deal" >
+                   <a  data-target="#betplaceModal"class="btn btn-warning btn-block " id="deal"
+                        role="button" data-toggle="modal" onclick="setValues()"
+                        >DEAL</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-10 col-md-8 offset-1 offset-md-2 gameBoard" id="dealerHold">              
+                </div>
+                <div class="col-12 col-md-2 playerCallCard">
+                    <h3 style="color:white;" id="plcard">DEALER</h3>
+                    <p style="color:white" id="plScoreTitle">Score:</p>
+                    <p style="color:white" id="dealerScoreTrack">0</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <img src="./images/249-2493918_logo-black-jack-png.png" id="boardLogo">
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-md-2 playerCallCard">
+                    <h3 style="color:white;" id="plcard">You</h3>
+                    <p style="color:white" id="plScoreTitle">Score:</p>
+                    <p style="color:white" id="playerScoreTrack">0</p>
+                    <p style="color:white" id="playerBetAmount">Bet:0</p>
+                    <p style="color:white" id="playerBag">Bag:0</p>
+                </div>
+                <div class="col-10 col-md-8 gameBoard" id="cardhold" >
+                </div>
+                <div class="col-12 col-md-2 playerBoard">
+                    <button id="hitButton" type="button" onclick="hit()" disabled>Hit</button>
+                    <button id="standButton" type="button" onclick="Stand()" disabled>Stand</button>
+                    <button id="resetButton" type="button" onclick="doubleDown()" disabled>Double Down</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <footer class="footer">
+       
+    </footer>
+    <script src="DoubleDown.js"></script>
+    <script src="HitStand.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+    let playerScore=0;
+    let dealerScore=0;
+    var cardCount=0;
+    var dealerCardCount=0;
+    let betplaced=50;
+    let amount=5000;
+    var counter=0;
+    let data= {};
+
+
+    function Dealer(){
+        var request = new XMLHttpRequest()
+
+        request.open('GET', 'https://deckofcardsapi.com/api/deck/new/draw/?count=3', true )
+        request.onload = function () {
+        data = JSON.parse(this.response)
+        var x=0;
+        if (request.status >= 200 && request.status < 400) {
+            while(x<3){
+            var img = document.createElement("img");
+            img.setAttribute('src', data.cards[x].image);
+            img.setAttribute('width', "20%%");
+            img.setAttribute('display', "inline-block");
+            img.setAttribute('class', "initialCardImg");
+            img.setAttribute('visibility','visible');
+            if(x==0){
+            document.getElementById("dealerHold").appendChild(img);
+            if(data.cards[0].value=="KING" || data.cards[0].value=="QUEEN" || data.cards[0].value=="JACK"){
+                    var value=10;
+                dealerScore=dealerScore+10;
+                }
+                else if(data.cards[0].value=="ACE"){
+                    if(dealerScore>10) dealerScore=dealerScore+1;
+                    else dealerScore=dealerScore+11;
+                }
+                else{
+                    dealerScore=dealerScore+parseInt(data.cards[0].value);                  
+                }
+                dealerCardCount++;
+            }
+            else{
+                document.getElementById("cardhold").appendChild(img);
+                if(data.cards[x].value=="KING" || data.cards[x].value=="QUEEN" || data.cards[x].value=="JACK"){
+                    var value=10;
+                playerScore=playerScore+10;
+                }
+                else if(data.cards[x].value=="ACE"){
+                    if(playerScore<=10) playerScore=playerScore+11;
+                    else playerScore=playerScore+1;
+                }
+                else{
+                   playerScore=playerScore+parseInt(data.cards[x].value);
+                }
+                cardCount++;
+            }
+            x++;
+            }
+        } else {
+            console.log('error')
+        }
+        }
+
+        request.send()
+    }
+    
+    function RESET(){
+        playerScore=0;
+        dealerScore=0;
+        counter=0;
+        cardCount=0;
+        $(".cardImg").remove();
+        $(".initialCardImg").remove();
+        Dealer();
+        window.setTimeout(move, 500);
+        document.getElementById("dealerScoreTrack").innerHTML="0";
+        document.getElementById("playerScoreTrack").innerHTML="0";
+        
+    }
+    function move(){
+        var element = document.getElementById("cardhold");
+        element.scrollTop = element.scrollHeight - element.clientHeight;window.scrollTo(0,document.body.scrollHeight);
+    }
+    
+    function disableButton(){
+        document.getElementById("hitButton").disabled=true;
+        document.getElementById("standButton").disabled=true;
+        document.getElementById("resetButton").disabled=true;
+    }
+
+
+    function dis(){
+        if(parseInt(document.getElementById("betplaced").value) <= parseInt(document.getElementById("amount").value)/2){
+        betplaced=document.getElementById("betplaced").value;
+        amount=document.getElementById("amount").value;
+        move();
+        var boards=document.getElementsByClassName("initialCardImg");
+        if(counter<3){
+            boards[counter].style.visibility="visible";
+            window.setTimeout(dis,500);
+        }
+        else{
+
+        }
+        document.getElementById("hitButton").disabled=false;
+        document.getElementById("standButton").disabled=false;
+        document.getElementById("resetButton").disabled=false;
+        document.getElementById("results").innerHTML="YOUR TURN"
+        document.getElementById("dealerScoreTrack").innerHTML=dealerScore+"";
+        document.getElementById("playerScoreTrack").innerHTML=playerScore+"";
+        document.getElementById("playerBetAmount").innerHTML="Bet:"+betplaced;
+        document.getElementById("playerBag").innerHTML="Bag:"+amount;
+        counter++;
+        document.getElementById("initialBet").style.display="none";
+        document.getElementById("inGameBets").style.visibility="visible";
+        }
+        else{
+            alert("Amount should atleast be twice as much as the bet placed.")
+            $('#betplaceModal').modal("show");
+        }
+    }
+
+    function setValues(){
+        document.getElementById("betplaced").value=betplaced;
+        document.getElementById("amount").value=amount;
+    }
+
+    function nextRound(){
+        RESET();
+        window.setTimeout(dis,1000)
+    }
+
+        $('#instrctionsAndRulesModal').modal("show");
+    
+
+</script>
+</body>
+
+</html>
