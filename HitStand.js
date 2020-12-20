@@ -30,8 +30,7 @@ function hit() {
         amount=parseInt(amount)-parseInt(betplaced);
         disableButton();
         document.getElementById("results").innerHTML="You BUST! Dealer WINS!";
-        document.getElementById("deal").click();
-
+        window.setTimeout(popBet, 1000)
         document.getElementById("modalHeader").innerHTML="DEALER WINS! Place your bet!"
         }
         cardCount++;
@@ -81,42 +80,41 @@ function Stand(){
             document.getElementById("results").innerHTML="BLACKJACK! YOU WIN!";
             disableButton();
             amount=parseInt(amount)+(1.5*parseInt(betplaced));
-            document.getElementById("deal").click();
+            window.setTimeout(popBet, 1000)
             document.getElementById("modalHeader").innerHTML="BLACKJACK! YOU WIN!"
         }
         else if(cardCount==2 && playerScore==21 && dealerCardCount>2 ){
             document.getElementById("results").innerHTML="BLACKJACK! YOU WIN!";
             disableButton();
             amount=parseInt(amount)+(1.5*parseInt(betplaced));
-            document.getElementById("deal").click();
+            window.setTimeout(popBet, 1000)
             document.getElementById("modalHeader").innerHTML="BLACKJACK! YOU WIN!"
         }
         else if(dealerScore>21){
         document.getElementById("results").innerHTML="Dealer BUSTS! You WIN!";
         disableButton();
         amount=parseInt(amount)+parseInt(betplaced);
-        var dealAgain=document.getElementById("deal")
-        window.setTimeout(dealAgain.click(),100)
+        window.setTimeout(popBet, 1000)
         document.getElementById("modalHeader").innerHTML="YOU WIN! Place your bet!"
         }
         else if(dealerScore>16 && dealerScore<playerScore){
             document.getElementById("results").innerHTML="You WIN!";
             disableButton();
             amount=parseInt(amount)+parseInt(betplaced);
-            document.getElementById("deal").click();
+            window.setTimeout(popBet, 1000)
             document.getElementById("modalHeader").innerHTML="YOU WIN! Place your bet!"
         }
         else if(dealerScore>16 && dealerScore==playerScore){
             document.getElementById("results").innerHTML="DRAW!";
             disableButton();
-            document.getElementById("deal").click();
+            window.setTimeout(popBet, 1000)
             document.getElementById("modalHeader").innerHTML="DRAW! Place your bet!"
         }
         else if(dealerScore>16 && dealerScore>playerScore){
             document.getElementById("results").innerHTML="Dealer WINS!";
             disableButton();
             amount=parseInt(amount)-parseInt(betplaced);
-            document.getElementById("deal").click();
+            window.setTimeout(popBet, 1000)
             document.getElementById("modalHeader").innerHTML="DEALER WINS! Place your bet!"                  
         }
         else{

@@ -158,6 +158,7 @@
     var counter=0;
     let data= {};
 
+    $('#instrctionsAndRulesModal').modal("show");
 
     function Dealer(){
         var request = new XMLHttpRequest()
@@ -280,8 +281,10 @@
         window.setTimeout(dis,1000)
     }
 
-        $('#instrctionsAndRulesModal').modal("show");
     
+    function popBet(){
+        document.getElementById("deal").click();
+    }
 
 </script>
 </body>
